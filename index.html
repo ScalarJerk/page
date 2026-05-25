@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sudibyo sinha.</title>
+  <meta name="description" content="building → vc. writing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #f7f6f4;
+      --ink:    #1e1c1a;
+      --muted:  #888;
+      --faint:  #aaa;
+      --border: #e8e6e2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0;
+    }
+    .logo { font-size: 15px; font-weight: 600; cursor: pointer; letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 15px; font-weight: 400; color: var(--muted); cursor: pointer; transition: color .15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+    /* LAYOUT */
+    .wrap { max-width: 640px; margin: 0 auto; padding: 3.5rem 2rem 6rem; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* TYPE */
+    h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 0.5rem; }
+    .subtitle { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 3rem; }
+
+    /* HOME */
+    .home-lede { font-size: 15px; color: #555; line-height: 1.6; max-width: 480px; margin: 2rem 0; }
+    .home-nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .home-nav-links a { font-size: 14px; color: var(--muted); cursor: pointer; transition: color .15s; border-bottom: 1px solid #ccc; padding-bottom: 1px; }
+    .home-nav-links a:hover { color: var(--ink); border-color: var(--ink); }
+    .home-recent-label { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin: 3rem 0 1rem; }
+
+    /* WRITING */
+    .year-group { margin-bottom: 3rem; }
+    .year-label { font-size: 13px; color: var(--faint); font-weight: 400; margin-bottom: 0.75rem; letter-spacing: .02em; }
+    .writing-row { display: grid; grid-template-columns: 36px 1fr auto; gap: 0 1rem; align-items: baseline; padding: 0.5rem 0; border-top: 0.5px solid var(--border); cursor: pointer; }
+    .writing-row:last-child { border-bottom: 0.5px solid var(--border); }
+    .w-month { font-size: 13px; color: var(--faint); font-weight: 400; }
+    .w-title { font-size: 15px; color: var(--ink); border-bottom: 1px solid #c0bdb8; display: inline; transition: opacity .15s; line-height: 1.8; }
+    .writing-row:hover .w-title { opacity: 0.5; }
+    .w-tag { font-size: 12px; color: var(--faint); text-align: right; font-weight: 400; white-space: nowrap; }
+
+    /* PROJECTS */
+    .project-row { padding: 1.5rem 0; border-top: 0.5px solid var(--border); }
+    .project-row:last-child { border-bottom: 0.5px solid var(--border); }
+    .project-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; }
+    .project-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; border-bottom: 1px solid #c0bdb8; transition: opacity .15s; }
+    .project-name:hover { opacity: 0.5; }
+    .project-status { font-size: 13px; color: var(--faint); font-weight: 400; }
+    .project-desc { font-size: 15px; color: #555; line-height: 1.6; }
+
+    /* NOW */
+    .now-meta { font-size: 13px; color: var(--faint); margin-bottom: 2.75rem; }
+    .now-meta a { color: var(--faint); border-bottom: 1px solid #ccc; }
+    .now-section { margin-bottom: 2.25rem; }
+    .now-section:last-child { margin-bottom: 0; }
+    .now-h { font-size: 16px; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .now-body { font-size: 15px; color: #555; line-height: 1.6; }
+    .now-body em { font-style: italic; }
+    .dash { color: var(--faint); margin-right: .35rem; }
+
+    /* ABOUT */
+    .about-body { margin-top: 1.5rem; }
+    .about-body p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; }
+    .about-body a.ul { border-bottom: 1px solid #999; }
+    .about-muted { font-size: 14px; color: var(--faint); margin-top: 2rem; }
+    .about-muted a { border-bottom: 1px solid #ccc; color: var(--muted); }
+
+    /* FOOTER */
+    footer { max-width: 640px; margin: 0 auto; padding: 1.5rem 2rem 2.5rem; border-top: 0.5px solid var(--border); }
+    footer a { font-size: 13px; color: var(--faint); border-bottom: 1px solid #ddd; transition: color .15s; }
+    footer a:hover { color: var(--muted); }
+    .dot { margin: 0 .4rem; color: #ccc; font-size: 13px; }
+
+    /* MOBILE */
+    @media (max-width: 480px) {
+      nav { padding: 1.5rem 1.25rem 0; }
+      .nav-links { gap: 1.1rem; }
+      .nav-links a { font-size: 14px; }
+      .wrap { padding: 2.5rem 1.25rem 5rem; }
+      h1 { font-size: 1.85rem; }
+      .writing-row { grid-template-columns: 30px 1fr auto; gap: 0 .6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="logo" onclick="go('home')">sudibyo.</span>
+    <ul class="nav-links">
+      <li><a id="n-writing"  onclick="go('writing')">writing</a></li>
+      <li><a id="n-memos"    onclick="go('memos')">memos</a></li>
+      <li><a id="n-quotes"   onclick="go('quotes')">quotes</a></li>
+      <li><a id="n-about"    onclick="go('about')">about</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrap">
+
+    <!-- HOME -->
+    <div class="page active" id="p-home">
+      <h1>sudibyo sinha.</h1>
+      <p class="home-lede">
+        i'm building a three-jurisdiction fintech infrastructure for ~3m indian migrants in the gcc, and writing my way toward private equity.
+      </p>
+      <div class="home-nav-links">
+        <a onclick="go('writing')">writing →</a>
+        <a onclick="go('memos')">memos →</a>
+        <a onclick="go('quotes')">quotes →</a>
+        <a href="mailto:sudibyosinha.work@gmail.com">contact ↗</a>
+      </div>
+
+      <p class="home-recent-label">recent writing</p>
+      <div class="year-group" style="margin-bottom:0">
+        <div class="writing-row" onclick="go('writing')">
+          <span class="w-month">may</span>
+          <span class="w-title">lorem ipsum dolor sit amet</span>
+          <span class="w-tag">venture</span>
+        </div>
+        <div class="writing-row" onclick="go('writing')">
+          <span class="w-month">apr</span>
+          <span class="w-title">consectetur adipiscing elit</span>
+          <span class="w-tag">venture</span>
+        </div>
+        <div class="writing-row" onclick="go('writing')">
+          <span class="w-month">mar</span>
+          <span class="w-title">sed do eiusmod tempor incididunt</span>
+          <span class="w-tag">pe</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WRITING -->
+    <div class="page" id="p-writing">
+      <h1>writing.</h1>
+      <p class="subtitle">reflections on venture, private equity, ai, and the world around me.</p>
+
+      <div class="year-group">
+        <p class="year-label">2026</p>
+        <div class="writing-row"><span class="w-month">may</span><span class="w-title">lorem ipsum dolor sit amet</span><span class="w-tag">venture</span></div>
+        <div class="writing-row"><span class="w-month">apr</span><span class="w-title">consectetur adipiscing elit</span><span class="w-tag">venture</span></div>
+        <div class="writing-row"><span class="w-month">mar</span><span class="w-title">sed do eiusmod tempor incididunt</span><span class="w-tag">pe</span></div>
+      </div>
+
+      <div class="year-group">
+        <p class="year-label">2025</p>
+        <div class="writing-row"><span class="w-month">dec</span><span class="w-title">ut labore et dolore magna aliqua</span><span class="w-tag">ecommerce</span></div>
+        <div class="writing-row"><span class="w-month">oct</span><span class="w-title">minim veniam quis nostrud</span><span class="w-tag">venture</span></div>
+        <div class="writing-row"><span class="w-month">aug</span><span class="w-title">exercitation ullamco laboris nisi</span><span class="w-tag">books</span></div>
+        <div class="writing-row"><span class="w-month">jun</span><span class="w-title">aliquip ex ea commodo consequat</span><span class="w-tag">saas</span></div>
+        <div class="writing-row"><span class="w-month">mar</span><span class="w-title">duis aute irure dolor in reprehenderit</span><span class="w-tag">ecommerce</span></div>
+      </div>
+    </div>
+
+    <!-- MEMOS -->
+    <div class="page" id="p-memos">
+      <h1>memos.</h1>
+      <p class="subtitle">investment theses and underwriting notes on companies i've evaluated.</p>
+
+      <div class="project-row">
+        <div class="project-top">
+          <a class="project-name" href="https://notion.so/abc-memo-placeholder" target="_blank">abc ↗</a>
+        </div>
+        <p class="project-desc">investment memo evaluating a leveraged buyout of a mid-market healthcare it provider, focusing on cost-saving synergies and debt paydown.</p>
+      </div>
+      <div class="project-row">
+        <div class="project-top">
+          <a class="project-name" href="https://notion.so/ank-memo-placeholder" target="_blank">ank ↗</a>
+        </div>
+        <p class="project-desc">series a investment thesis on an ai-native customer support platform, analyzing unit economics and net revenue retention.</p>
+      </div>
+      <div class="project-row">
+        <div class="project-top">
+          <a class="project-name" href="https://notion.so/xyz-memo-placeholder" target="_blank">xyz ↗</a>
+        </div>
+        <p class="project-desc">commercial due diligence memo on a third-party logistics provider, assessing post-pandemic market dynamics and margin expansion opportunities.</p>
+      </div>
+    </div>
+
+    <!-- QUOTES -->
+    <div class="page" id="p-quotes">
+      <h1>quotes.</h1>
+      <p class="subtitle">words that stopped me mid-thought. kept here so they can do it again.</p>
+
+      <div class="now-section">
+        <p class="now-h">marcus aurelius</p>
+        <p class="now-body">you could leave life right now. let that determine what you do and say and think.</p>
+      </div>
+      <div class="now-section">
+        <p class="now-h">seneca</p>
+        <p class="now-body">we suffer more often in imagination than in reality.</p>
+      </div>
+      <div class="now-section">
+        <p class="now-h">goddard</p>
+        <p class="now-body">assume the feeling of your wish fulfilled and observe the route that your attention follows.</p>
+      </div>
+      <div class="now-section">
+        <p class="now-h">steve jobs</p>
+        <p class="now-body">you can't connect the dots looking forward; you can only connect them looking backward. so you have to trust that the dots will somehow connect in your future.</p>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="page" id="p-about">
+      <h1>about.</h1>
+      <div class="about-body">
+        <p>i'm sudibyo. i'm building a three-jurisdiction fintech infrastructure for ~3m indian migrants in the gcc, and writing my way toward private equity.</p>
+        <p>my interests sit at the intersection of software, media, finance, and alternative investments. most of what i write are reflections on how systems scale, how stories sell, and how stakes are set.</p>
+        <p>i'm a tech undergrad from india. previously i've worked on early-stage products. i spend a lot of time talking to founders and partners, and am looking for future opportunities in growth and private equity.</p>
+        <p>write to me at <a href="mailto:sudibyosinha.work@gmail.com" class="ul">sudibyosinha.work@gmail.com</a> ☕</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>
+      <a href="mailto:sudibyosinha.work@gmail.com">email</a>
+      <span class="dot">·</span>
+      <a href="https://x.com/sudibyosinha" target="_blank">x</a>
+      <span class="dot">·</span>
+      <a href="https://www.linkedin.com/in/sudibyo-sinha/" target="_blank">linkedin</a>
+      <span class="dot">·</span>
+      <a href="https://www.instagram.com/darealsudibyosinha/" target="_blank">instagram</a>
+      <span class="dot">·</span>
+      <a href="https://stephango.com/" target="_blank">inspired by steph ango.</a>
+    </span>
+  </footer>
+
+  <script>
+    function go(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const page = document.getElementById('p-' + id);
+      const nav  = document.getElementById('n-' + id);
+      if (page) page.classList.add('active');
+      if (nav)  nav.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.pushState(null, '', id === 'home' ? '/' : '#' + id);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && document.getElementById('p-' + hash)) go(hash);
+    });
+
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash.replace('#', '') || 'home';
+      go(hash);
+    });
+  </script>
+
+</body>
+</html>
